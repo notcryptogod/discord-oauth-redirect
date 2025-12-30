@@ -53,29 +53,16 @@
       />
     </svg>
 
-    <!-- Заголовок -->
-    <div style="
-      font-size:20px;
-      font-weight:700;
-      line-height:1.2;
-      margin-bottom:10px;
-    ">
+    <div style="font-size:20px;font-weight:700;margin-bottom:10px;">
       Discord успешно привязан
     </div>
 
-    <!-- Подтекст -->
-    <div style="
-      font-size:15px;
-      line-height:1.35;
-      opacity:0.9;
-      margin-bottom:22px;
-    ">
+    <div style="font-size:15px;opacity:0.9;margin-bottom:22px;">
       Сейчас вы будете автоматически<br>
       перенаправлены в Telegram
     </div>
 
-    <!-- Кнопка fallback -->
-    <a href="https://tg.pulse.is/notcryptogodxbot?start=discord_linked"
+    <a id="tg-link"
        style="
          display:inline-block;
          background:#CCFB55;
@@ -85,11 +72,7 @@
          font-weight:600;
          padding:10px 18px;
          border-radius:14px;
-         transition: transform 0.15s ease, opacity 0.15s ease;
-       "
-       onmousedown="this.style.transform='scale(0.95)'"
-       onmouseup="this.style.transform='scale(1)'"
-    >
+       ">
       Открыть Telegram
     </a>
 
@@ -101,51 +84,41 @@
       stroke-dashoffset: 260;
       animation: drawCheck 0.9s ease-out forwards,
                  bounceCheck 0.4s ease-out 0.9s forwards;
-      transform-origin: center;
     }
-
-    @keyframes drawCheck {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
     @keyframes bounceCheck {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.08); }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
       100% { transform: scale(1); }
     }
   </style>
 
   <script>
     (function () {
-      var params = new URLSearchParams(window.location.search);
-      var code = params.get('code');
-      var state = params.get('state');
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      const state = params.get('state');
 
       if (code && state) {
-        fetch('https://hook.eu1.make.com/prqy4wigbj4uijszirbo43ub29p7uh0l', {
+        fetch('https://discord-telegram-link.pewdiepiep743.workers.dev/discord/callback', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            code: code,
-            state: state
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, state })
         });
-      }
 
-      setTimeout(function () {
-        window.location.replace(
-          'https://tg.pulse.is/notcryptogodxbot?start=69540ae6a687e60ece0493f1'
-        );
-      }, 2000);
+        const tgUrl = 'https://t.me/notcryptogodxbot?start=discord_linked_' + encodeURIComponent(state);
+        document.getElementById('tg-link').href = tgUrl;
+
+        setTimeout(() => {
+          window.location.replace(tgUrl);
+        }, 2000);
+      }
     })();
   </script>
 
 </body>
 </html>
+
 
 
 
