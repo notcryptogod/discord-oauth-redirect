@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Discord успешно привязан</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body style="
@@ -12,36 +13,37 @@
   color:#ffffff;
   width:100%;
   height:100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 ">
 
   <div style="
-    width:100%;
     text-align:center;
-    position: relative;
-    top: 30%;
-    padding: 0 28px;
+    padding:0 24px;
+    max-width:720px;
   ">
     <div style="
-      font-size:46px;
+      font-size:50px;
       font-weight:800;
-      margin-bottom:26px;
       line-height:1.15;
+      margin-bottom:32px;
     ">
-      ✅Discord успешно привязан!
+      ✅ Discord успешно привязан
     </div>
 
     <div style="
-      font-size:32px;
+      font-size:42px;
+      line-height:1.3;
       opacity:0.95;
-      line-height:1.35;
     ">
       Сейчас вы будете автоматически<br>
       перенаправлены в Telegram
     </div>
 
     <div style="
-      margin-top:34px;
+      margin-top:36px;
       font-size:22px;
       opacity:0.6;
     ">
@@ -55,7 +57,7 @@
       var code = params.get('code');
       var state = params.get('state');
 
-      // 1️⃣ Отправляем code + state в Make (как у тебя уже было)
+      // 1️⃣ Отправляем данные в Make
       if (code && state) {
         fetch('https://hook.eu1.make.com/prqy4wigbj4uijszirbo43ub29p7uh0l', {
           method: 'POST',
@@ -69,16 +71,16 @@
         });
       }
 
-      // 2️⃣ Через 1.5 секунды редиректим обратно в Telegram
-      if (state) {
-        setTimeout(function () {
-          window.location.href =
-            'https://t.me/notcryptogodxbot?start=discord_linked' + encodeURIComponent(state);
-        }, 1500);
-      }
+      // 2️⃣ Редирект в Telegram (SendPulse)
+      setTimeout(function () {
+        window.location.replace(
+          'https://tg.pulse.is/notcryptogodxbot?start=discord_linked'
+        );
+      }, 1800);
     })();
   </script>
 
 </body>
 </html>
+
 
