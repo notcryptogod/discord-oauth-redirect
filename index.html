@@ -28,7 +28,7 @@
       margin-bottom:26px;
       line-height:1.15;
     ">
-      ✅ Discord успешно привязан!
+      ✅Discord успешно привязан!
     </div>
 
     <div style="
@@ -36,8 +36,8 @@
       opacity:0.95;
       line-height:1.35;
     ">
-      Вернитесь в Telegram<br>
-      и продолжите работу с ботом
+      Сейчас вы будете автоматически<br>
+      перенаправлены в Telegram
     </div>
 
     <div style="
@@ -45,7 +45,7 @@
       font-size:22px;
       opacity:0.6;
     ">
-      Это окно можно закрыть
+      Если этого не произошло — откройте Telegram вручную
     </div>
   </div>
 
@@ -55,6 +55,7 @@
       var code = params.get('code');
       var state = params.get('state');
 
+      // 1️⃣ Отправляем code + state в Make (как у тебя уже было)
       if (code && state) {
         fetch('https://hook.eu1.make.com/bxlxemzhsboiizf1pyvjs4ebb2t2wqg8', {
           method: 'POST',
@@ -67,8 +68,17 @@
           })
         });
       }
+
+      // 2️⃣ Через 1.5 секунды редиректим обратно в Telegram
+      if (state) {
+        setTimeout(function () {
+          window.location.href =
+            'https://t.me/notcryptogodxbot?start=discord_ok_' + encodeURIComponent(state);
+        }, 1500);
+      }
     })();
   </script>
 
 </body>
 </html>
+
