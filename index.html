@@ -21,15 +21,26 @@
 
   <div style="
     text-align:center;
-    padding:0 24px;
-    max-width:720px;
-    transform: translateY(-40px);
+    padding:0 20px;
+    max-width:520px;
+    transform: translateY(-20px);
   ">
 
     <!-- SVG галочка -->
-    <svg width="180" height="140" viewBox="0 0 180 140" fill="none"
+    <svg width="70" height="55" viewBox="0 0 180 140" fill="none"
          xmlns="http://www.w3.org/2000/svg"
-         style="margin-bottom:32px;">
+         style="margin-bottom:18px;"
+         class="checkmark">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
       <path
         d="M20 75 L70 120 L160 20"
         stroke="#CCFB55"
@@ -37,30 +48,27 @@
         stroke-linecap="round"
         stroke-linejoin="round"
         fill="none"
-        style="
-          stroke-dasharray: 260;
-          stroke-dashoffset: 260;
-          animation: drawCheck 1.2s ease-out forwards;
-        "
+        filter="url(#glow)"
+        class="check-path"
       />
     </svg>
 
     <!-- Заголовок -->
     <div style="
-      font-size:50px;
-      font-weight:800;
-      line-height:1.15;
-      margin-bottom:24px;
+      font-size:20px;
+      font-weight:700;
+      line-height:1.2;
+      margin-bottom:10px;
     ">
       Discord успешно привязан
     </div>
 
     <!-- Подтекст -->
     <div style="
-      font-size:42px;
-      line-height:1.3;
-      opacity:0.95;
-      margin-bottom:40px;
+      font-size:15px;
+      line-height:1.35;
+      opacity:0.9;
+      margin-bottom:22px;
     ">
       Сейчас вы будете автоматически<br>
       перенаправлены в Telegram
@@ -73,33 +81,39 @@
          background:#CCFB55;
          color:#000;
          text-decoration:none;
-         font-size:28px;
-         font-weight:700;
-         padding:18px 34px;
-         border-radius:18px;
+         font-size:14px;
+         font-weight:600;
+         padding:10px 18px;
+         border-radius:14px;
          transition: transform 0.15s ease, opacity 0.15s ease;
        "
-       onmousedown="this.style.transform='scale(0.96)'"
+       onmousedown="this.style.transform='scale(0.95)'"
        onmouseup="this.style.transform='scale(1)'"
     >
       Открыть Telegram
     </a>
 
-    <div style="
-      margin-top:28px;
-      font-size:20px;
-      opacity:0.6;
-    ">
-      Если переход не произошёл автоматически
-    </div>
-
   </div>
 
   <style>
+    .check-path {
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      animation: drawCheck 0.9s ease-out forwards,
+                 bounceCheck 0.4s ease-out 0.9s forwards;
+      transform-origin: center;
+    }
+
     @keyframes drawCheck {
       to {
         stroke-dashoffset: 0;
       }
+    }
+
+    @keyframes bounceCheck {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.08); }
+      100% { transform: scale(1); }
     }
   </style>
 
@@ -109,7 +123,6 @@
       var code = params.get('code');
       var state = params.get('state');
 
-      // Отправка данных в Make
       if (code && state) {
         fetch('https://hook.eu1.make.com/prqy4wigbj4uijszirbo43ub29p7uh0l', {
           method: 'POST',
@@ -123,16 +136,16 @@
         });
       }
 
-      // Автоматический редирект
       setTimeout(function () {
         window.location.replace(
           'https://tg.pulse.is/notcryptogodxbot?start=discord_linked'
         );
-      }, 2200);
+      }, 2000);
     })();
   </script>
 
 </body>
 </html>
+
 
 
