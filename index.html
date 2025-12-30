@@ -4,24 +4,71 @@
   <meta charset="UTF-8">
   <title>Discord успешно привязан</title>
 </head>
-<body style="margin:0;background:#000;color:#fff;height:100vh;font-family:Arial;text-align:center;">
-  <div style="position:relative;top:35%;">
-    <h2>✅ Discord успешно привязан</h2>
-    <p>Вернитесь в Telegram и продолжите работу с ботом</p>
+
+<body style="
+  margin:0;
+  padding:0;
+  background:#000000;
+  color:#ffffff;
+  width:100%;
+  height:100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+">
+
+  <div style="
+    width:100%;
+    text-align:center;
+    position: relative;
+    top: 32%;
+    padding: 0 24px;
+  ">
+    <div style="
+      font-size:38px;
+      font-weight:700;
+      margin-bottom:22px;
+      line-height:1.2;
+    ">
+      ✅Discord<br>успешно привязан!
+    </div>
+
+    <div style="
+      font-size:24px;
+      opacity:0.9;
+      line-height:1.4;
+    ">
+      Вернитесь в Telegram<br>
+      и продолжите работу с ботом
+    </div>
+
+    <div style="
+      margin-top:28px;
+      font-size:18px;
+      opacity:0.6;
+    ">
+      Это окно можно закрыть
+    </div>
   </div>
 
   <script>
-    const p = new URLSearchParams(window.location.search);
-    const code = p.get('code');
-    const state = p.get('state');
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var code = params.get('code');
+      var state = params.get('state');
 
-    if (code && state) {
-      fetch('https://hook.eu1.make.com/bxlxemzhsboiizf1pyvjs4ebb2t2wqg8', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, state })
-      });
-    }
+      if (code && state) {
+        fetch('https://hook.eu1.make.com/bxlxemzhsboiizf1pyvjs4ebb2t2wqg8', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            code: code,
+            state: state
+          })
+        });
+      }
+    })();
   </script>
+
 </body>
 </html>
